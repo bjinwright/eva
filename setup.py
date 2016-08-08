@@ -4,7 +4,7 @@ from setuptools import setup
 
 setup(
     name='eva',
-    version='0.1',
+    version='0.1.1',
     description='Plugin for virtualenvwrapper to automatically '
                 'export config vars found in your project level '
                 '.env file.',
