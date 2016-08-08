@@ -21,6 +21,7 @@ class Loader(object):
         try:
             with open(path, 'r') as env:
                 self._parse(env.read())
+            print('Loading environment variables from {0}'.format(path))
         except IOError:
             log.info('Skip loading environment. %s does not exist.' % path)
 
@@ -71,7 +72,14 @@ loader = Loader()
 def pre_activate(args):
     project = args[0]
     base = os.environ.get('PROJECT_HOME', os.environ.get('WORKON_HOME'))
-    loader.load(os.path.join(base, project, '.env'))
+    try:
+        project_path = os.path.join(
+            open(
+                os.path.join(base,project,'.project')).readline(-1).strip(),
+            '.env')
+    except IOError:
+        project_path = os.path.join(base, project, '.env')
+    loader.load(project_path)
 
 
 def pre_activate_source(args):

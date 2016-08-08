@@ -3,19 +3,23 @@
 from setuptools import setup
 
 setup(
-    name='virtualenvwrapper.configvar',
+    name='eva',
     version='0.1',
     description='Plugin for virtualenvwrapper to automatically '
                 'export config vars found in your project level '
                 '.env file.',
-    author='Sean Brant',
-    author_email='brant.sean@gmail.com',
-    url='https://github.com/seanbrant/virtualenvwrapper.configvar',
+    author='Brian Jinwright',
+    author_email='opensource@ipoots.com',
+    url='https://github.com/bjinwright/eva',
     namespace_packages=['virtualenvwrapper'],
     packages=['virtualenvwrapper'],
+    py_modules=['eva.cli'],
+
     install_requires=[
         'virtualenv',
         'virtualenvwrapper>=2.11',
+        'click>=6.6',
+        'terminaltables>=3.0.0',
     ],
     entry_points={
         'virtualenvwrapper.pre_activate': [
@@ -30,5 +34,9 @@ setup(
         'virtualenvwrapper.post_deactivate_source': [
             'configvars = virtualenvwrapper.configvars:post_deactivate_source',
         ],
-    }
+        'console_scripts':[
+            'eva=eva.cli:eva'
+        ]
+    },
+
 )
